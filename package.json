@@ -1,0 +1,73 @@
+{
+  "name": "@marinedotsh/better-auth-plugin-template",
+  "version": "0.0.0",
+  "description": "A Better Auth plugin that restricts account creation to allowlisted email domains.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "sideEffects": false,
+  "packageManager": "pnpm@12.16.1",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "dev": "tsdown --watch",
+    "build": "tsdown",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write .",
+    "typecheck": "tsc --noEmit",
+    "typecheck:test": "tsc --noEmit -p tsconfig.test.json",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check": "pnpm lint && pnpm typecheck && pnpm typecheck:test && pnpm test && pnpm build",
+    "publish:check": "pnpm check && tsdown --publint --attw && pnpm pack --dry-run",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "pnpm publish:check && changeset publish",
+    "prepack": "pnpm build"
+  },
+  "peerDependencies": {
+    "@better-auth/core": "^1.6.23",
+    "better-auth": "^1.6.23"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "import": "./dist/client.js"
+    },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "devDependencies": {
+    "@better-auth/core": "^1.6.23",
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@biomejs/biome": "^2.6.4",
+    "@changesets/cli": "^3.0.3",
+    "@types/node": "^26.6.6",
+    "better-auth": "^1.6.23",
+    "publint": "^0.3.25",
+    "tsdown": "^0.23.4",
+    "typescript": "^6.0.3",
+    "vitest": "^5.0.5",
+    "zod": "^4.6.7"
+  }
+}
